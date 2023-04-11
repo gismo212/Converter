@@ -1,43 +1,20 @@
 require 'rubygems'
 require 'sinatra'
+require 'sinatra/reloader'
+#require 'sqlite3'
+#1 создать страницу авторизация,2 данные схранять в бд ,
+#2.1  создать возможность просмотра базы данных через логин и пароль админа,2.2 сделать проверку если такой пользователь был (заполнение формы не нужно)
+#3 оформить переход на на конвертер при авторизации 
 
-configure do
-  enable :sessions
-end
-
-helpers do
-  def username
-    session[:identity] ? session[:identity] : 'Hello stranger'
-  end
-end
-
-before '/secure/*' do
-  unless session[:identity]
-    session[:previous_url] = request.path
-    @error = 'Sorry, you need to be logged in to visit ' + request.path
-    halt erb(:login_form)
-  end
-end
 
 get '/' do
-  erb 'Can you handle a <a href="/secure/place">secret</a>?'
+	erb 'Hello'
+	erb 'In order to use the currency converter, go to the converter tab!'
 end
 
-get '/login/form' do
-  erb :login_form
+
+get'/Converter' do
+   erb:Converter
 end
 
-post '/login/attempt' do
-  session[:identity] = params['username']
-  where_user_came_from = session[:previous_url] || '/'
-  redirect to where_user_came_from
-end
 
-get '/logout' do
-  session.delete(:identity)
-  erb "<div class='alert alert-message'>Logged out</div>"
-end
-
-get '/secure/place' do
-  erb 'This is a secret place that only <%=session[:identity]%> has access to!'
-end
