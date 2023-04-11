@@ -20,9 +20,21 @@ post '/Form' do
 	@login=params[:login]
 	@email=params[:mail]
 	erb "You login:#{@login}, You email:#{@email}"
+	hh={:login=>'Enter you login',:mail=>'Enter you email'}
+
+	hh.each do |key,value| 
+			if params[key]==''
+				@error=hh[key]
+				return erb:Form
+			end	
+	end
+
 end
 
 get '/Converter' do
 	erb :Converter
 end
 
+post 'Converter' do
+	erb:Converter
+end
