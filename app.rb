@@ -8,7 +8,6 @@ require 'sinatra/reloader'
 
 
 get '/' do
-	erb 'Hello'
 	erb 'In order to use the currency converter, go to the converter tab!'
 end
 
