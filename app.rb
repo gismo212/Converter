@@ -19,22 +19,32 @@ end
 post '/Form' do
 	@login=params[:login]
 	@email=params[:mail]
-	erb "You login:#{@login}, You email:#{@email}"
+	#erb "You login:#{@login}, You email:#{@email}"
 	hh={:login=>'Enter you login',:mail=>'Enter you email'}
 
 	hh.each do |key,value| 
 			if params[key]==''
 				@error=hh[key]
-				return erb:Form
+				return erb :Form
 			end	
 	end
 
+	if @login=='admin' && @email=='bric98@mail.ru'
+		erb:info	
+	end	
+	erb :Converter
+
 end
+	
+	get '/info' do
+		erb:info5
+	end
+
 
 get '/Converter' do
 	erb :Converter
 end
 
 post 'Converter' do
-	erb:Converter
+	erb :Converter
 end
