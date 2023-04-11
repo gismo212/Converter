@@ -1,10 +1,29 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
-#require 'sqlite3'
+require 'sqlite3'
 #1 создать страницу авторизация,2 данные схранять в бд ,
 #2.1  создать возможность просмотра базы данных через логин и пароль админа,2.2 сделать проверку если такой пользователь был (заполнение формы не нужно)
 #3 оформить переход на на конвертер при авторизации 
+
+
+def get_db
+	db=SQLite3::Database.new 'Users.db'
+	db.results_as_hash=true
+	return db
+end
+
+configure do
+	db=get_db
+
+	db.execute'CREATE TABLE IF NOT EXISTS "User"
+	 (
+	 "Id" INTEGER PRIMARY KEY AUTOINCREMENT,
+	  "Email" VARCHAR,
+	   "Login" VARCHAR
+	   )'
+end
+
 
 
 get '/' do
@@ -37,7 +56,7 @@ post '/Form' do
 end
 	
 	get '/info' do
-		erb:info5
+		erb:info
 	end
 
 
