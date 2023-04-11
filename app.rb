@@ -16,7 +16,7 @@ end
 configure do
 	db=get_db
 
-	db.execute'CREATE TABLE IF NOT EXISTS "User"
+	db.execute'CREATE TABLE IF NOT EXISTS "Users"
 	 (
 	 "Id" INTEGER PRIMARY KEY AUTOINCREMENT,
 	  "Email" VARCHAR,
@@ -52,10 +52,17 @@ post '/Form' do
 		erb:info	
 	end	
 	erb :Converter
-
 end
 	
 	get '/info' do
+		db=get_db
+		db.execute'select *from Users  id order by id',[id]
+		erb:info
+	end
+
+	post '/info'  do
+		db=get_db
+		db.execute'insert into Users ("Email","Login") values(?,?)',[@email,@login]
 		erb:info
 	end
 
