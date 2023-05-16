@@ -4,6 +4,7 @@
 
 <form action="/Converter" method="POST" role="form" >
 	<select name="well">
+		<label>Choose color</label>
 		<option value="buy">Buy</option>
 		<option value="sell">Sell</option>
 	</select>
@@ -12,10 +13,11 @@
 	USD:<input type="integer" name="usd" value="<%=@d%>">
 	<br />
 	<br />
-	BRB:<input type="integer" name="brb" value="<%=@b%>">
 	<div>
-		<%=@b%>
+		<%=@n%>
 	</div>
+	<!-- BRB:<input type="integer" name="brb" value="<%=@b%>"> -->
+	
 	<br />
 	<br /> 
 
